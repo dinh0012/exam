@@ -21,7 +21,7 @@ services:
     image: api
     container_name: examp_api
     volumes:
-      - ./api/src:/var/www/exam_api/src
+      - ./api:/var/www/exam_api
     ports:
       - "${IP_API}:3000:3000"
     command: /bin/sh -c "npm install && npm start"
