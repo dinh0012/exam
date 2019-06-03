@@ -1,0 +1,4 @@
+export IP_DB=127.0.100.11
+export IP_SOURCE=127.0.100.12
+export DOMAIN_DB=db.local
+export DOMAIN_SERVER=server.local
