@@ -1,0 +1,1 @@
+export {IndexController} from "./IndexController";
