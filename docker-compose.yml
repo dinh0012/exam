@@ -9,7 +9,7 @@ services:
       - MYSQL_PASSWORD=root
       - MYSQL_DATABASE=exam
     ports:
-      - "${IP_DB}:3600:3600"
+      - "${IP_DB}:3306:3306"
     command:
       - --innodb_use_native_aio=0
       - --character-set-server=utf8
@@ -21,7 +21,7 @@ services:
     image: api
     container_name: examp_api
     volumes:
-      - ./api:/var/www/exam_api
+      - ./api/src:/var/www/exam_api/src
     ports:
       - "${IP_API}:3000:3000"
     command: /bin/sh -c "npm install && npm start"
