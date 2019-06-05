@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import mysql, {Connection, queryCallback, QueryFunction} from "mysql";
+import mysql, {Connection, Pool, PoolConnection, queryCallback, QueryFunction} from "mysql";
 
 dotenv.config();
 const host = process.env.DB_HOST;
@@ -18,16 +18,30 @@ export class DB {
     return this.instance;
   }
 
-  public connection: Connection = null;
+  public connection: Pool = null;
 
   constructor() {
     if (!this.connection) {
-      this.connection = mysql.createConnection({
+      this.connection = mysql.createPool({
         host,
         user,
         password,
         database
       });
+      this.connection.getConnection((err, connection) => {
+        if (err) {
+          if (err.code === "PROTOCOL_CONNECTION_LOST") {
+            console.error("Database connection was closed.")
+          }
+          if (err.code === "ER_CON_COUNT_ERROR") {
+            console.error("Database has too many connections.")
+          }
+          if (err.code === "ECONNREFUSED") {
+            console.error("Database connection was refused.")
+          }
+        }
+        if (connection) { connection.release() }
+      })
     }
   }
 
