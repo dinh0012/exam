@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
-import mysql, {Connection, Pool, PoolConnection, queryCallback, QueryFunction} from "mysql";
+import util from "util";
+import mysql, {Pool, queryCallback} from "mysql";
 
 dotenv.config();
 const host = process.env.DB_HOST;
@@ -49,13 +50,15 @@ export class DB {
     return this.connection
   }
 
-  public query(query: string, value: any, cb: queryCallback = null) {
-    this.connection.query(query, value, (err, rows, fields) => {
-      if (err) {
-        throw err;
-      }
-      cb && cb(rows, fields)
-    });
+  public async query(query: string, value: any, cb: queryCallback = null) {
+    this.connection.query =  util.promisify(this.connection.query).bind(this.connection)
+    try {
+       const a = await this.connection.query(query, value);
+      console.log(a)
+       return a;
+    } catch (err) {
+      throw new Error(err)
+    }
   }
 
 }

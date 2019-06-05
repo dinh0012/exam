@@ -2,10 +2,9 @@ import {DB} from "../model/DB/db";
 import {Request, Response} from "express-serve-static-core";
 
 export class IndexController {
-    public index(req: Request, res: Response) {
-        DB.getInstance().query("select * from questions where id = ?", [1], ( rows, fields) => {
-            res.json({a: rows});
-        })
+    public async index(req: Request, res: Response) {
+        const a = await DB.getInstance().query("select * from questions where id = ?", [1])
+        res.json({a});
 
     }
     public helloWorld(req: Request, res: Response) {
