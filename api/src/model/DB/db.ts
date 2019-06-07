@@ -51,10 +51,12 @@ export class DB {
   }
 
   public async query(query: string, value: any, cb: queryCallback = null) {
+
     this.connection.query =  util.promisify(this.connection.query).bind(this.connection)
     try {
        return await this.connection.query(query, value);
     } catch (err) {
+      console.log(err)
       throw new Error(err)
     }
   }
