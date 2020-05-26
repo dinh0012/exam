@@ -1,0 +1,4 @@
+[2020-05-26T03:12:04.758] [WARN] nodeJS - start cluster with 1 workers
+[2020-05-26T03:12:04.785] [WARN] nodeJS - worker 857 started.
+[2020-05-26T03:12:06.265] [WARN] nodeJS - Express server starting...
+[2020-05-26T03:12:06.359] [WARN] nodeJS - Express server listening on port 8080 in production-linux mode
